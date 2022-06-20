@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>QCM-QUIZ GENERATOR
+    </title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="../static/images/Logo-ITIC-Paris.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js">
+    </script>
+    <header class="p-3 mb-3 border-bottom">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+            <img width="40px" height="60px" alt="logo ITIC" src="{{url_for('static', filename = 'images/logo-ITIC-Paris.png')}}"/>
+          </a>
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+              <a href="#" class="nav-link px-2 link-secondary">Dashbord
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-secondary">Questions
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-dark">QCM
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-2 link-dark">Contact
+              </a>
+            </li>
+          </ul>
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li>
+                <a class="dropdown-item" href="#">Profile
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Déconnexion
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container bg-light py-3">
+      <h5 class="display-5 fw-bold">Ajouter des questions
+      </h5>
+    </div>
+    <div class="container table">
+      <form>
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" id="select_all" /> ALL
+              </th>
+              <th>Question
+              </th>
+              <th>Option A
+              </th>
+              <th>Option B
+              </th>
+              <th>Option C
+              </th>
+              <th>Option D
+              </th>
+              <th colspan="2">Opération
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for question in data %}
+            <tr>
+              <td>
+                <input type="checkbox" id="select[]" />
+              </td>
+              <td>{{ question[0] }}
+              </td>
+              <td>
+                {% if(question[5][1] == "x") %}
+                <strong>Bonne réponse
+                </strong>
+                <br/>
+                {% endif %}
+                {{ question[1] }}
+              </td>
+              <td>
+                {% if(question[5][2] == "x") %}
+                <strong>Bonne réponse
+                </strong>
+                <br/>
+                {% endif %}
+                {{ question[2] }}
+              </td>
+              <td>
+                {% if(question[5][3] == "x") %}
+                <strong>Bonne réponse
+                </strong>
+                <br/>
+                {% endif %}
+                {{ question[3] }}
+              </td>
+              <td>
+                {% if(question[5][4] == "x") %}
+                <strong>Bonne réponse
+                </strong>
+                <br/>
+                {% endif %}
+                {{ question[4] }}
+              </td>
+              <td>
+                <!-- Button trigger modal -->
+                <i type="button" class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal{{ question[5][0] }}">
+                </i>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{ question[5][0] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modifier une question
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                                <div class="modal-body mx-3">
+<div class="md-form">
+              <label data-error="wrong" data-success="right" for="form8">Question</label>
+
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="2">{{ question[0] }}</textarea>
+        </div>
+
+                                    <div class="md-form">
+               <label data-error="wrong" data-success="right" for="form8">Option A
+                   {% if(question[5][1] == "x") %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}" checked />
+                    {% else %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}"  />
+                   {% endif %}
+               </label>
+
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="2">{{ question[1] }}</textarea>
+        </div>
+
+                                    <div class="md-form">
+                                                  <label data-error="wrong" data-success="right" for="form8">Option B
+                                                  {% if(question[5][2] == "x") %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}" checked />
+                    {% else %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}"  />
+                   {% endif %}
+                                                  </label>
+
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="2">{{ question[2] }}</textarea>
+        </div>
+
+                                    <div class="md-form">
+          <label data-error="wrong" data-success="right" for="form8">Option C
+          {% if(question[5][3] == "x") %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}" checked />
+                    {% else %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}"  />
+                   {% endif %}
+          </label>
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="2">{{ question[3] }}</textarea>
+        </div>
+
+                                    <div class="md-form">
+                                                  <label data-error="wrong" data-success="right" for="form8">Option D
+                                                  {% if(question[5][4] == "x") %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}" checked />
+                    {% else %}
+                       <input type="radio" class="form-check-input" name="correctAnswer{{ question[5][0] }}"  />
+                   {% endif %}
+                                                  </label>
+
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="2">{{ question[4] }}</textarea>
+        </div>
+
+      </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer
+                        </button>
+                        <button type="button" class="btn btn-primary">Enregistrer les modifications
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <i class="fa fa-trash">
+                </i>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <button class="btn btn-primary"> Enregistrer les questions </button>
+        <button class="btn btn-primary"> Enregistrer les questions </button>
+      </form>
+      <script>
+        $(document).ready( function () {
+          $('example').DataTable({
+            responsive: true
+          }
+                                );
+        }
+                         );
+        $('#select_all').change(function() {
+          var checkboxes = $(this).closest('form').find(':checkbox');
+          checkboxes.prop('checked', $(this).is(':checked'));
+        }
+                               );
+      </script>
+    </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div class="col-md-8 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+          <svg class="bi" width="30" height="24">
+          </svg>
+        </a>
+        <span class="text-muted">Developped with
+          <span class="blink">♥
+          </span> by
+          <a href="http://www.mlaghuibrahim.com"> MLAGHUI Brahim
+          </a>- Site non officiel de la FEDE - © 2022
+        </span>
+      </div>
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3">
+          <a class="text-muted" href="#">
+            <svg version="1.1" id="Layer_1"width="32px" height="32px"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 455 455" style="enable-background:new 0 0 455 455;" xml:space="preserve">
+              <g>
+                <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M246.4,204.35v-0.665c-0.136,0.223-0.324,0.446-0.442,0.665H246.4z"/>
+                <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M0,0v455h455V0H0z M141.522,378.002H74.016V174.906h67.506V378.002z
+                                                                      M107.769,147.186h-0.446C84.678,147.186,70,131.585,70,112.085c0-19.928,15.107-35.087,38.211-35.087
+                                                                      c23.109,0,37.31,15.159,37.752,35.087C145.963,131.585,131.32,147.186,107.769,147.186z M385,378.002h-67.524V269.345
+                                                                      c0-27.291-9.756-45.92-34.195-45.92c-18.664,0-29.755,12.543-34.641,24.693c-1.776,4.34-2.24,10.373-2.24,16.459v113.426h-67.537
+                                                                      c0,0,0.905-184.043,0-203.096H246.4v28.779c8.973-13.807,24.986-33.547,60.856-33.547c44.437,0,77.744,29.02,77.744,91.398V378.002
+                                                                      z"/>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+            </svg>
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="text-muted" href="#">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"  width="32px" height="32px"  viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+              <g>
+                <path d="m256,11c-135.1,0-245,109.9-245,245s109.9,245 245,245c135.1,0 245-109.9 245-245s-109.9-245-245-245zm189.9,170c-18.4-10.6-40.8-19.4-66.3-26.2-7.7-31.3-18.8-59-32.6-81.5 44.8,22.4 80.3,60.8 98.9,107.7zm-111.3-35.5c-18.4-2.8-37.9-4.6-58.2-5.3v-82.8c22.5,12.2 44.2,43.5 58.2,88.1zm-99-88.1v82.8c-20.3,0.7-39.8,2.5-58.2,5.3 14-44.6 35.7-75.9 58.2-88.1zm-70.6,15.9c-13.8,22.5-24.9,50.2-32.6,81.5-25.5,6.8-47.9,15.7-66.3,26.2 18.6-46.9 54.1-85.3 98.9-107.7zm-113.2,182.7c0-18.2 26-40.5 72.3-56.1-2.2,18-3.4,36.7-3.4,56.1 0,19.4 1.2,38.1 3.4,56.1-46.3-15.6-72.3-37.9-72.3-56.1zm14.3,75c18.4,10.6 40.8,19.4 66.3,26.2 7.7,31.3 18.8,59 32.6,81.5-44.8-22.4-80.3-60.8-98.9-107.7zm95.5-75c0-24 2-46.5 5.5-67.3 20.5-4 43.4-6.7 68.5-7.6v149.8c-25.1-1-48-3.7-68.5-7.6-3.5-20.8-5.5-43.3-5.5-67.3zm15.8,110.5c18.4,2.8 37.9,4.6 58.2,5.3v82.8c-22.5-12.2-44.2-43.5-58.2-88.1zm99,88.1v-82.8c20.3-0.7 39.8-2.5 58.2-5.3-14,44.6-35.7,75.9-58.2,88.1zm0-123.7v-149.8c25.1,1 48,3.7 68.5,7.6 3.5,20.7 5.5,43.3 5.5,67.3s-2,46.5-5.5,67.3c-20.5,3.9-43.4,6.6-68.5,7.6zm70.6,107.8c13.8-22.5 25-50.2 32.6-81.5 25.5-6.8 47.9-15.6 66.3-26.2-18.6,46.9-54.1,85.3-98.9,107.7zm40.8-126.6c2.2-18 3.4-36.7 3.4-56.1 0-19.4-1.2-38.1-3.4-56.1 46.4,15.6 72.3,37.9 72.3,56.1 0.1,18.2-25.9,40.5-72.3,56.1z"/>
+              </g>
+            </svg>
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="text-muted" href="#">
+            <svg width="32px" height="32px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0.396c-8.839 0-16 7.167-16 16 0 7.073 4.584 13.068 10.937 15.183 0.803 0.151 1.093-0.344 1.093-0.772 0-0.38-0.009-1.385-0.015-2.719-4.453 0.964-5.391-2.151-5.391-2.151-0.729-1.844-1.781-2.339-1.781-2.339-1.448-0.989 0.115-0.968 0.115-0.968 1.604 0.109 2.448 1.645 2.448 1.645 1.427 2.448 3.744 1.74 4.661 1.328 0.14-1.031 0.557-1.74 1.011-2.135-3.552-0.401-7.287-1.776-7.287-7.907 0-1.751 0.62-3.177 1.645-4.297-0.177-0.401-0.719-2.031 0.141-4.235 0 0 1.339-0.427 4.4 1.641 1.281-0.355 2.641-0.532 4-0.541 1.36 0.009 2.719 0.187 4 0.541 3.043-2.068 4.381-1.641 4.381-1.641 0.859 2.204 0.317 3.833 0.161 4.235 1.015 1.12 1.635 2.547 1.635 4.297 0 6.145-3.74 7.5-7.296 7.891 0.556 0.479 1.077 1.464 1.077 2.959 0 2.14-0.020 3.864-0.020 4.385 0 0.416 0.28 0.916 1.104 0.755 6.4-2.093 10.979-8.093 10.979-15.156 0-8.833-7.161-16-16-16z"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </footer>
+  </body>
+</html>
